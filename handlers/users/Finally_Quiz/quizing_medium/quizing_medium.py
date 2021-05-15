@@ -10,11 +10,12 @@ from aiogram import types
 
 from states.MachineStates_For_Quiz import QuizMedium
 
-answer = []
+user_answers = []
 
 
 @dp.message_handler(Command("quiz_medium"), state=None)
 async def enter_easy_test(message: types.Message):
+
     # присылаем фотку и клаву
     await message.answer_photo(photo=open(photo_db.get_one_file_name(name='medium_question_1'), 'rb'))
     await message.answer("Вопрос 1:\n" + Medium_Array_Questions[0])
@@ -23,21 +24,23 @@ async def enter_easy_test(message: types.Message):
 
 @dp.message_handler(state=QuizMedium.Q1)
 async def answer_test_1(message: types.Message, state: FSMContext):
-    # сохраняем и пишем данные
-    answer.append(message.text)
-    await state.update_data(answer1=answer[0])
+    # сохраняем и пишем данныеa
+    answer_1_medium = message.text
+    user_answers.append(answer_1_medium)
+    await state.update_data(answer1=answer_1_medium)
 
     # отправляем новую фотку + вопрос
     await message.answer_photo(photo=open(photo_db.get_one_file_name(name='medium_question_2'), 'rb'))
     await message.answer("Вопрос 2:\n" + Medium_Array_Questions[1])
 
-    await QuizMedium.Q2.set()
+    await QuizMedium.Q13.set()
 
 
 @dp.message_handler(state=QuizMedium.Q2)
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_second_medium = message.text
+    user_answers.append(answer_second_medium)
     await state.update_data(answer2=answer_second_medium)
 
     # отправляем новую фотку + вопрос
@@ -51,6 +54,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_third_medium = message.text
+    user_answers.append(answer_third_medium)
     await state.update_data(answer3=answer_third_medium)
 
     # отправляем новую фотку + вопрос
@@ -64,6 +68,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_4th_medium = message.text
+    user_answers.append(answer_4th_medium)
     await state.update_data(answer4=answer_4th_medium)
 
     # отправляем новую фотку + вопрос
@@ -77,6 +82,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_5th_medium = message.text
+    user_answers.append(answer_5th_medium)
     await state.update_data(answer5=answer_5th_medium)
 
     # отправляем новую фотку + вопрос
@@ -90,6 +96,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_6th_medium = message.text
+    user_answers.append(answer_6th_medium)
     await state.update_data(answer6=answer_6th_medium)
 
     # отправляем новую фотку + вопрос
@@ -103,6 +110,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_7th_medium = message.text
+    user_answers.append(answer_7th_medium)
     await state.update_data(answer7=answer_7th_medium)
 
     # отправляем новую фотку + вопрос
@@ -116,6 +124,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_8th_medium = message.text
+    user_answers.append(answer_8th_medium)
     await state.update_data(answer8=answer_8th_medium)
 
     # отправляем новую фотку + вопрос
@@ -129,6 +138,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_9th_medium = message.text
+    user_answers.append(answer_9th_medium)
     await state.update_data(answer9=answer_9th_medium)
 
     # отправляем новую фотку + вопрос
@@ -142,6 +152,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_10th_medium = message.text
+    user_answers.append(answer_10th_medium)
     await state.update_data(answer10=answer_10th_medium)
 
     # отправляем новую фотку + вопрос
@@ -155,6 +166,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_11th_medium = message.text
+    user_answers.append(answer_11th_medium)
     await state.update_data(answer9=answer_11th_medium)
 
     # отправляем новую фотку + вопрос
@@ -168,6 +180,7 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем и пишем данные
     answer_12th_medium = message.text
+    user_answers.append(answer_12th_medium)
     await state.update_data(answer12=answer_12th_medium)
 
     # отправляем новую фотку + вопрос
@@ -180,14 +193,20 @@ async def answer_test_1(message: types.Message, state: FSMContext):
 @dp.message_handler(state=QuizMedium.Q13)
 async def answer_test_1(message: types.Message, state: FSMContext):
     # сохраняем последний ответ
-    await state.update_data(answer13=message.text)
-    # сохраняем и пишем данные
-    data = await state.get_data()
-
-    checked = []
-
-    for i in range(len(data)+1):
-        checked.append(await check_answer_medium(message, data.get("answer" + str(i+1)), i+1))
-
-    await message.answer('\n'.join(checked))
+    answer_13th_medium = message.text
+    user_answers.append(answer_13th_medium)
+    await state.update_data(answer13=answer_13th_medium)
+    total_answers = await check_answer_medium(message, user_answers)
+    await message.answer(total_answers)
     await state.finish()
+
+    # # сохраняем и пишем данные
+    # data = await state.get_data()
+    #
+    # checked = []
+    #
+    # for i in range(len(data)+1):
+    #     checked.append(await check_answer_medium(message, data.get("answer" + str(i+1)), i+1))
+    #
+    # await message.answer('\n'.join(checked))
+    # await state.finish()

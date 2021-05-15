@@ -54,16 +54,19 @@ class Database:
         email VARCHAR(255),
         lat DOUBLE,
         lon DOUBLE,
-        rating DOUBLE,
+        rating_easy DOUBLE,
+        rating_medium DOUBLE,
+        rating_hard DOUBLE,
         PRIMARY KEY (id)
         );
         """
         # Закрепляем изменения
         self.execute(sql, commit=True)
 
-    def add_user(self, id: int, name: str, email: str = None, lat: float = 0, lon: float = 0, rating: float = 0):
-        sql = "INSERT OR IGNORE INTO Users(id, name, email, lat, lon, rating) VALUES(?, ?, ?, ?, ?, ?)"
-        self.execute(sql, (id, name, email, lat, lon, rating), commit=True)
+    def add_user(self, id: int, name: str, email: str = None, lat: float = 0, lon: float = 0,
+                 rating_easy: float = 0, rating_medium: float = 0, rating_hard: float = 0,):
+        sql = "INSERT OR IGNORE INTO Users(id, name, email, lat, lon, rating_easy, rating_medium, rating_hard) VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
+        self.execute(sql, (id, name, email, lat, lon, rating_easy, rating_medium, rating_hard), commit=True)
 
     def select_all_users(self):
         sql = "SELECT * FROM Users"
@@ -90,9 +93,9 @@ class Database:
         sql = "UPDATE Users SET email=? WHERE id=?"
         return self.execute(sql, parameters=(email, id), commit=True)
 
-    def update_rating(self, id: int, rating: float):
-        sql = "UPDATE Users SET rating=? WHERE id=?"
-        return self.execute(sql, parameters=(rating, id), commit=True)
+    #def update_rating(self, id: int, rating: float):
+    #    sql = "UPDATE Users SET rating=? WHERE id=?"
+    #    return self.execute(sql, parameters=(rating, id), commit=True)
 
     def update_lat(self, id: int, lat: float):
         sql = "UPDATE Users SET lat=? WHERE id=?"
@@ -116,6 +119,30 @@ class Database:
         sql = "DELETE FROM Users WHERE id=?"
         return self.execute(sql, parameters=tuple([id]), commit=True)
 
+    def get_rating_easy(self, id: int):
+        # print((await self.select_user(id=id))[5])
+        return (self.select_user(id=id))[5]
+
+    def get_rating_medium(self, id: int):
+        return (self.select_user(id=id))[6]
+
+    def get_rating_hard(self, id: int):
+        return (self.select_user(id=id))[7]
+
+    def get_rating_total(self, id: int):
+        return (self.get_rating_easy(id)) + (self.get_rating_medium(id)) + (self.get_rating_hard(id))
+
+    def update_rating_easy(self, id: int, rating: float):
+        sql = "UPDATE Users SET rating_easy=? WHERE id=?"
+        return self.execute(sql, parameters=(rating, id), commit=True)
+
+    def update_rating_medium(self, id: int, rating: float):
+        sql = "UPDATE Users SET rating_medium=? WHERE id=?"
+        return self.execute(sql, parameters=(rating, id), commit=True)
+
+    def update_rating_hard(self, id: int, rating: float):
+        sql = "UPDATE Users SET rating_hard=? WHERE id=?"
+        return self.execute(sql, parameters=(rating, id), commit=True)
 
 # логгирование результатов
 def logger(statement):

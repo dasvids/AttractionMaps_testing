@@ -23,7 +23,9 @@ class Database:
         email VARCHAR(255),
         lat double precision,
         lon double precision,
-        rating double precision,
+        rating_easy double precision,
+        rating_medium double precision,
+        rating_hard double precision,
         PRIMARY KEY (id)
         );
         """
@@ -36,9 +38,10 @@ class Database:
         ])
         return sql, tuple(parameters.values())
 
-    async def add_user(self, id: int, name: str, email: str = None, lat: float = 0, lon: float = 0, rating: float = 0):
-        sql = "INSERT INTO Users(id, name, email, lat, lon, rating) VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT DO NOTHING"
-        await self.pool.execute(sql, id, name, email, lat, lon, rating)
+    async def add_user(self, id: int, name: str, email: str = None, lat: float = 0, lon: float = 0,
+                       rating_easy: float = 0, rating_medium: float = 0, rating_hard: float = 0,):
+        sql = "INSERT INTO Users(id, name, email, lat, lon, rating_easy, rating_medium, rating_hard) VALUES($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT DO NOTHING"
+        await self.pool.execute(sql, id, name, email, lat, lon, rating_easy, rating_medium, rating_hard)
 
     async def select_all_users(self):
         sql = "SELECT * FROM Users"
@@ -58,10 +61,6 @@ class Database:
         sql = "UPDATE Users SET email=$1 WHERE id=$2"
         return await self.pool.execute(sql, email, id)
 
-    async def update_rating(self, id: int, rating: float):
-        sql = "UPDATE Users SET rating=$1 WHERE id=$2"
-        return await self.pool.execute(sql, rating, id)
-
     async def update_lat(self, id: int, lat: float):
         sql = "UPDATE Users SET lat=$1 WHERE id=$2"
         return await self.pool.execute(sql, lat, id)
@@ -75,6 +74,31 @@ class Database:
         lat = x[3]
         lon = x[4]
         return lat, lon
+
+    async def get_rating_easy(self, id: int):
+        # print((await self.select_user(id=id))[5])
+        return (await self.select_user(id=id))[5]
+
+    async def get_rating_medium(self, id: int):
+        return (await self.select_user(id=id))[6]
+
+    async def get_rating_hard(self, id: int):
+        return (await self.select_user(id=id))[7]
+
+    async def get_rating_total(self, id: int):
+        return (await self.get_rating_easy(id)) + (await self.get_rating_medium(id)) + (await self.get_rating_hard(id))
+
+    async def update_rating_easy(self, id: int, rating: float):
+        sql = "UPDATE Users SET rating_easy=$1 WHERE id=$2"
+        return await self.pool.execute(sql, rating, id)
+
+    async def update_rating_medium(self, id: int, rating: float):
+        sql = "UPDATE Users SET rating_medium=$1 WHERE id=$2"
+        return await self.pool.execute(sql, rating, id)
+
+    async def update_rating_hard(self, id: int, rating: float):
+        sql = "UPDATE Users SET rating_hard=$1 WHERE id=$2"
+        return await self.pool.execute(sql, rating, id)
 
     async def delete_all_users(self):
         await self.pool.execute("DELETE FROM Users WHERE True")

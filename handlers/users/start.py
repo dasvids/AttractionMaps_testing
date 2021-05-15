@@ -17,7 +17,7 @@ async def bot_start(message: types.Message):
 
     # если Бд уже есть, печатаем ошибку
     try:
-        db.add_user(id=message.from_user.id, name=message.from_user.full_name, rating=0.0)
+        db.add_user(id=message.from_user.id, name=message.from_user.full_name)
 
     except Exception as error:
         print(error)

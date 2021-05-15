@@ -6,7 +6,7 @@ from loader import dp, db
 
 @dp.message_handler(Command("get_my_rating"))
 async def get_my_rating(message: types.Message):
-    rate = db.select_user(id=message.from_user.id)[-1]
+    rate = db.get_rating_total(message.from_user.id)
     await message.answer("Ваш рейтинг: " + str(rate))
 
 
@@ -24,6 +24,6 @@ async def view_rating_user(message: types.Message):
 
     output_string = ""
     for user in sorted_user_rating:
-        output_string += "Рейтинг пользователя " + user + ": " + str(sorted_user_rating[user])
+        output_string += "Рейтинг пользователя " + user + ": " + str(sorted_user_rating[user]) + str("\n")
     await message.answer(output_string)
 

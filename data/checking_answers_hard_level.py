@@ -5,7 +5,7 @@ from aiogram.utils.markdown import hbold
 
 from loader import db
 
-List_Of_Pattern_regex = [
+ListPatternsRegexHardLevel = [
     "^((стало)\s+(перв(ым|ой))\s+(зданием|постройкой)?\s*(в)\s+(стране|россии)\s*,*\s*(спроектированным|построенным|созданным)?\s*(специально)?\s*для\s*(размещения)?\s*(морских)\s+(животных)\s*)$",
     "^((является|это)?\s*(развитие)\s+(творческого\s+потенциал(а|ов)|творчества)\s+(студент(ов|а)|ученик(ов|а)),?\s*(а\*так\s+же|и|,)?\s*(организация|предоставление)?\s*(и[х|м])?\s*(полного|полноценного)?\s*(досуга)?\s*)$",
     "^((как)?\s*(поздний)?\s+(памятник)?\s+(конструктивизм[ау])\s*)$",
@@ -23,8 +23,7 @@ List_Of_Pattern_regex = [
     "^((((\s*церковь)\s*всех\s*святых\s*)|(новопоселенское\s*(городское)?\s*кладбище\s*))\s*(,|.|и|или){0,2}\s*((?!\2)(((\s*церковь)\s*всех\s*святых\s*)|(\s*новопоселенское\s*(городское)?\s*кладбище\s*))?)\s*)$"
 ]
 
-
-List_Of_correct_answers = [
+ListCorrectAnswersHardLevel = [
     "стало первым в стране, спроектированным специально для размещения морских животных",
     "развитие творческого потенциала студентов и организация их полноценного досуга",
     "поздний памятник конструктивизма",
@@ -43,164 +42,17 @@ List_Of_correct_answers = [
 ]
 
 
-async def check_answer_hard_1(message: types.Message, str_ans1):
-    result = re.search(str(List_Of_Pattern_regex[0]), str(str_ans1), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 1: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 1: Неправильный ответ!")
-
-
-async def check_answer_hard_2(message: types.Message, str_ans2):
-    result = re.search(str(List_Of_Pattern_regex[1]), str(str_ans2), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 2: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 2: Неправильный ответ!")
-
-
-async def check_answer_hard_3(message: types.Message, str_ans3):
-    result = re.search(str(List_Of_Pattern_regex[2]), str(str_ans3), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 3: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 3: Неправильный ответ!")
-
-
-async def check_answer_hard_4(message: types.Message, str_ans4):
-    result = re.search(str(List_Of_Pattern_regex[3]), str(str_ans4), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 4: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 4: Неправильный ответ!")
-
-
-async def check_answer_hard_5(message: types.Message, str_ans5):
-    result = re.search(str(List_Of_Pattern_regex[4]), str(str_ans5), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 5: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 5: Неправильный ответ!")
-
-
-async def check_answer_hard_6(message: types.Message, str_ans6):
-    result = re.search(str(List_Of_Pattern_regex[5]), str(str_ans6), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 6: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 6: Неправильный ответ!")
-
-
-async def check_answer_hard_7(message: types.Message, str_ans7):
-    result = re.search(str(List_Of_Pattern_regex[6]), str(str_ans7), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 7: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 7: Неправильный ответ!")
-
-
-async def check_answer_hard_8(message: types.Message, str_ans8):
-    result = re.search(str(List_Of_Pattern_regex[7]), str(str_ans8), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 8: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 8: Неправильный ответ!")
-
-
-async def check_answer_hard_9(message: types.Message, str_ans9):
-    result = re.search(str(List_Of_Pattern_regex[8]), str(str_ans9), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 9: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 9: Неправильный ответ!")
-
-
-async def check_answer_hard_10(message: types.Message, str_ans10):
-    result = re.search(str(List_Of_Pattern_regex[9]), str(str_ans10), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 10: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 10: Неправильный ответ!")
-
-
-async def check_answer_hard_11(message: types.Message, str_ans):
-    result = re.search(str(List_Of_Pattern_regex[10]), str(str_ans), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 11: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 11: Неправильный ответ!")
-
-
-async def check_answer_hard_12(message: types.Message, str_ans):
-    result = re.search(str(List_Of_Pattern_regex[11]), str(str_ans), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 12: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 12: Неправильный ответ!")
-
-
-async def check_answer_hard_13(message: types.Message, str_ans):
-    result = re.search(str(List_Of_Pattern_regex[12]), str(str_ans), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 13: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 13: Неправильный ответ!")
-
-
-async def check_answer_hard_14(message: types.Message, str_ans):
-    result = re.search(str(List_Of_Pattern_regex[13]), str(str_ans), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 14: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 14: Неправильный ответ!")
-
-
-async def check_answer_hard_15(message: types.Message, str_ans):
-    result = re.search(str(List_Of_Pattern_regex[14]), str(str_ans), re.IGNORECASE)
-    if result is not None:
-        await message.answer("Вопрос 15: Правильный ответ!")
-        RATE = db.select_user(id=message.from_user.id)[-1]
-        db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
-    else:
-        await message.answer("Вопрос 15: Неправильный ответ!")
-
-
 async def check_answer_hard(message: types.Message, answers):
-    assert (len(answers) == len(List_Of_Pattern_regex))
-    result_str = ""
+    # Обнуляем рейтинг
+    db.update_rating_hard(message.from_user.id, 0);
+
+    # assert (len(answers) == len(ListPatternsRegexHardLevel))
+    res = ""
     for i in range(0, len(answers)):
-        if re.search(List_Of_Pattern_regex[i], answers[i], re.IGNORECASE) is not None:
-            result_str += hbold(f"Правильный ответ : {int(i) + 1}\n")
-            RATE = db.select_user(id=message.from_user.id)[-1]
-            db.update_rating(id=message.from_user.id, rating=RATE + 3.0)
+        if re.search(ListPatternsRegexHardLevel[i], answers[i], re.IGNORECASE) is not None:
+            res += hbold(f"Правильный ответ : {int(i) + 1}\n")
+            rate = db.get_rating_hard(message.from_user.id)
+            db.update_rating_hard( id=message.from_user.id, rating=rate + 3.0)
         else:
-            result_str += hbold(f"Неправильный ответ : {int(i) + 1}\n Верным ответом будет :") + f" {List_Of_correct_answers[i]}\n"
-    return result_str
+            res += f"Неправильный ответ : {int(i) + 1}\n Верным ответом будет : {ListCorrectAnswersHardLevel[i]}\n"
+    return res
